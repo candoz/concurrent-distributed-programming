@@ -1,0 +1,12 @@
+# IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+
+# KDE Dolphin
+.directory
+
+# MAC OS
+.DS_Store

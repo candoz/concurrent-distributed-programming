@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="360.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="drc_chatter.ControllerChatSelector">
+ <children>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="206.0" spacing="4.0" styleClass="upper-background">
+         <children>
+            <Label text="Nickname:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Label>
+            <TextField fx:id="nicknameTextField" prefWidth="150.0" text="chatter">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="loginButton" focusTraversable="false" mnemonicParsing="false" onAction="#loginPressed" text="Login" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="4.0" top="4.0" />
+         </VBox.margin>
+      </HBox>
+      <ScrollPane focusTraversable="false" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox fx:id="chatroomsVBox" spacing="5.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <HBox alignment="CENTER" spacing="4.0" VBox.vgrow="NEVER">
+         <VBox.margin>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </VBox.margin>
+         <children>
+            <TextField fx:id="createChatroomTextField" />
+            <Button fx:id="createChatroomButton" focusTraversable="false" mnemonicParsing="false" onAction="#createChatroomPressed" text="Create room" />
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#refreshChatroomsPressed" text="↺" />
+         </children>
+      </HBox>
+ </children>
+</VBox>

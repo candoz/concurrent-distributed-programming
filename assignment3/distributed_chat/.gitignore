@@ -1,0 +1,7 @@
+# IntelliJ idea
+.idea/
+out/
+*.iml
+
+# KDE Dolphin
+.directory

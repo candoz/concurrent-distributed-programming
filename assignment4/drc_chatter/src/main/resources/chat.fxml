@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="360.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="drc_chatter.ControllerChat">
+ <children>
+      <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="206.0" spacing="4.0" styleClass="upper-background">
+         <children>
+            <Label fx:id="nicknameLabel" text="MyName" />
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutPressed" text="Logout" textAlignment="CENTER" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </VBox.margin>
+      </HBox>
+      <ListView fx:id="listView" VBox.vgrow="ALWAYS" />
+      <HBox fx:id="messageBox" alignment="CENTER" spacing="4.0" styleClass="upper-background">
+         <children>
+            <TextArea fx:id="messageTextArea" maxHeight="40.0" maxWidth="1.7976931348623157E308" minHeight="40.0" minWidth="250.0" prefHeight="40.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="11.0" />
+               </font></TextArea>
+          <Button fx:id="messageButton" minHeight="26.0" minWidth="60.0" mnemonicParsing="false" onAction="#sendPressed" text="Send" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </VBox.margin>
+      </HBox>
+ </children>
+</VBox>

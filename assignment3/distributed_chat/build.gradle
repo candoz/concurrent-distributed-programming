@@ -1,0 +1,15 @@
+apply plugin: 'java-library'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+
+    implementation 'com.google.guava:guava:21.0'
+    implementation 'com.typesafe.akka:akka-actor_2.12:2.5.12'
+    implementation 'com.typesafe.akka:akka-remote_2.12:2.5.12'
+    testImplementation 'junit:junit:4.12'
+	
+}
+

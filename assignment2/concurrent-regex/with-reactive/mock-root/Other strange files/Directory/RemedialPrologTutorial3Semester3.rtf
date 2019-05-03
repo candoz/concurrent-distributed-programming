@@ -1,0 +1,135 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\froman\fcharset0 Times New Roman;}{\f1\fswiss\fcharset0 Courier New;}{\f2\froman\fprq2\fcharset0 Times New Roman;}{\f3\fswiss\fcharset0 Arial;}}
+{\*\generator Msftedit 5.41.15.1507;}\viewkind4\uc1\pard\sb100\sa100\qc\ul\b\f0\fs24 Remedial Prolog Tutorial 3 Semester2\par
+\pard\sb100\sa100\ulnone\fs36 Using Cuts\b0\fs24\par
+The cut predicate has the effect of telling Prolog not to pass back through this point when it is looking for alternative solutions. Thus, the ``!'' acts as a marker, back beyond which Prolog will not go. When it passes this point all choices that is has made so far are ``set''; i.e. they are treated as though they were the only possible choices. \par
+Note that the cut always appears where a predicate can appear (never, for example, as arguments to a predicate). It is treated at this level just like any other predicate, and it \i always\i0 succeeds. \par
+In summary, the effect of the cut is as follows: \par
+\pard\fi-360\li720\sb100\sa100\tx720 Any variables which are bound to values at this point cannot take on other values \par
+No other versions of predicates called before the cut will be considered \par
+No other subsequent versions of the predicate at the head of the current rule will be considered \par
+The cut always succeeds. \par
+\pard\sb100\sa100 Basically, any more answers to the current query must come from backtracking between the point of the cut and the end of the current rule. \par
+\par
+\pard\keepn\sb100\sa100\b\fs36 An Example Of Using The Cut\par
+\pard\sb100\sa100\b0\fs24 Consider the following example: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   holiday(friday,may1).\par
+\par
+  weather(friday,fair).\par
+  weather(saturday,fair).\par
+  weather(sunday,fair).\par
+\par
+  weekend(saturday).\par
+  weekend(sunday).\par
+\par
+  % We go for picnics on good weekends and May 1st\par
+  picnic(Day) :- weather(Day,fair), weekend(Day).\par
+  picnic(Day) :- holiday(Day,may1).\par
+\pard\sb100\sa100\f0\fs24 1) What would be the result of posing the query: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   picnic(When). (consider all possible answers in turn)\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\pard\keepn\sb100\sa100\fs24 2)\f0 Now if we change the definition of \f1\fs20 picnic\f0\fs24  to the following: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   picnic(Day) :- weather(Day,fair), !, weekend(Day).\par
+  picnic(Day) :- holiday(Day,may1).\par
+\pard\sb100\sa100\f0\fs24 What would be the result of the query: \par
+\f1\fs20 Picnic(When).\f0\fs24  and why?\par
+\par
+\par
+\par
+\par
+\par
+3) Now we change the definition of \f1\fs20 picnic\f0\fs24  for a second time to get: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   picnic(Day) :- weather(Day,fair), weekend(Day), !.\par
+  picnic(Day) :- holiday(Day,may1).\par
+\pard\sb100\sa100\f0\fs24 What will happen this time and why?\par
+\par
+\par
+\par
+\par
+\par
+\par
+4) Finally, we change the definition of \f1\fs20 picnic\f0\fs24  once more, to get: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   picnic(Day) :- !, weather(Day,fair), weekend(Day).\par
+  picnic(Day) :- holiday(Day,may1).\par
+\pard\sb100\sa100\f0\fs24 What happens this time and why?\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\b\fs36 Answers\par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\fs24 1) \b0\par
+\par
+    \f1\fs20 picnic(Day) :- weather(Day,fair), !, weekend(Day).\par
+  picnic(Day) :- holiday(Day,may1).\par
+\pard\sb100\sa100\f0\fs24 When we pose the query: \f1\fs20 Picnic(When)\f0\fs24  Prolog will try to satisfy the sub-goal: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   weather(When,fair), !, weekend(When).\par
+\pard\sb100\sa100\f0\fs24 The first rule for weather is: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   weather(friday,fair), \par
+\pard\sb100\sa100\f0\fs24 so the new sub-goal becomes: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   ....., !, weekend(friday).\par
+\pard\sb100\sa100\f0\fs24 Prolog passes the cut, and goes on to try to satisfy \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   weekend(friday)\par
+\pard\sb100\sa100\f0\fs24 which fails. Previously, it would have backtracked to the last choice point, and gone on with processing \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   weather(saturday,fair)\par
+\pard\sb100\sa100\f0\fs24 But now the presence of the cut stops it going back, so it is trapped between the cut and the end of the (failed) predicate. \par
+The answer now is simply: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   No.\par
+\par
+\b\f2\fs24 2)\b0\par
+\par
+\f1\fs20   picnic(Day) :- weather(Day,fair), weekend(Day), !.\par
+  picnic(Day) :- holiday(Day,may1).\par
+\pard\sb100\sa100\f0\fs24 With the same query Prolog proceeds as before, until it gets to the sub-goal: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   ....., weekend(friday), !.\par
+\pard\sb100\sa100\f0\fs24 This time we go on to process: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   weekend(friday)\par
+\pard\sb100\sa100\f0\fs24 which fails, and so we go back to the last choice point \i without meeting the cut\i0 . \par
+Since we also have: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   weather(saturday,fair).\par
+\pard\sb100\sa100\f0\fs24 the new sub-goal becomes: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   ....., weekend(saturday), !.\par
+\pard\sb100\sa100\f0\fs24 This time the whole goal succeeds, and Prolog processes the cut. Since there is a successful answer, Prolog prints out: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   When = saturday.\par
+\pard\sb100\sa100\f0\fs24 However, because it has met the cut, it cannot go back, and so it will not return any extra answers.\par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20\par
+\pard\sb100\sa100\b\f0\fs24 3)\par
+\par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\b0\f1\fs20   picnic(Day) :- !, weather(Day,fair), weekend(Day).\par
+  picnic(Day) :- holiday(Day,may1).\par
+\pard\sb100\sa100\f0\fs24 This time when we ask \f1\fs20 picnic(When)\f0\fs24  the first thing we do is to process the cut, and Prolog puts down the "no going back" marker. Any solutions we get from now on have to come from between the "!" and the end of the clause. \par
+As before \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   weather(friday,fair)\par
+\pard\sb100\sa100\f0\fs24 fits, and so we try to satisfy: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   weekend(friday)\par
+\pard\sb100\sa100\f0\fs24 which fails. We backtrack to the last choice point, which was for the goal: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   weather(Day,fair)\par
+\pard\sb100\sa100\f0\fs24 Since we can get back here without passing the cut, we are free to consider the alternatives, and ultimately get: \par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20   When = saturday.\par
+  When = sunday.\par
+\pard\sb100\sa100\f0\fs24 Note that the second attempt to get the answer \f1\fs20 friday\f0\fs24  never happens, because getting to the goal for this would involve crossing the cut, which we can't do. \par
+Thus there are only two solutions in this case.\par
+\par
+\par
+\par
+\pard\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20\par
+\pard\f3\par
+}
+
